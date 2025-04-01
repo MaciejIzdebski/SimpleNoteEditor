@@ -1,9 +1,10 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, useId } from 'vue'
 import { defineStore } from 'pinia'
 
-function Note(title, description){
+function Note(title, description, ID){
   this.title = title
   this.description = description
+  this.ID = Symbol('id')
 }
 
 export const useNotesStore = defineStore('notes', () => {
@@ -14,11 +15,25 @@ export const useNotesStore = defineStore('notes', () => {
   }
 
   function remove(note){
+    let noteIndex = notes.findIndex((n) => n.ID === note.ID)
+
+    if (noteIndex === -1) {
+      throw Error("Could not find an element with id: " + note.ID)
+    }
     
+    console.log(noteIndex)
+    notes.splice(noteIndex,1)
   }
 
-  function update(note){
+  function update(note) {
+    console.log(note)
+    let noteIndex = notes.findIndex((n) => n.ID === note.ID)
 
+    if (noteIndex === -1) {
+      throw Error("Could not find an element with id: " + note.ID)
+    }
+
+    notes[noteIndex] = note
   }
 
   return { notes, create, remove, update }

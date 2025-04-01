@@ -25,11 +25,12 @@ header {
 #create-note-button {
   background-color: yellowgreen;
   color: black;
-  padding: 5px;
+  padding: 10px;
   margin: 5px;
-  border-radius: 3px;
+  border-radius: 5px;
   border: none;
 
+  font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
   &:hover {
    filter: brightness(60%);
    cursor: pointer;
