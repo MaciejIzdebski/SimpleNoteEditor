@@ -14,12 +14,12 @@ const notesStore = useNotesStore()
 <style>
 main {
   display: flex;
-  align-items: center center;
+  align-content: start;
+  justify-content: center;
   flex-direction: row;
   margin: 15px;
   padding: 15px;
-  gap: 7px;
-
+  gap: 15px;
   flex-wrap: wrap;
 }
 </style>

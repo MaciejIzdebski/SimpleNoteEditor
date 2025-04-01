@@ -7,32 +7,42 @@ const notes = useNotesStore()
 
 <template>
   <header>
-    <h3 class="">Note editor 2025 - Maciej Izdebski</h3>
     <button @click="notes.create()" id="create-note-button">Dodaj notatkę +</button>
   </header>
 
   <RouterView />
+
+  <footer>
+    <h6 class="">Note editor 2025 - Maciej Izdebski</h6>
+  </footer>
 </template>
 
 <style scoped>
 header {
   display: flex;
-  flex-direction: row;
-  line-height: 1.5;
-  max-height: 100vh;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  color: wheat;
 }
 
 #create-note-button {
-  background-color: yellowgreen;
-  color: black;
+  background-color: var(--color-primary);
+  color: var(--color-text);
   padding: 10px;
   margin: 5px;
   border-radius: 5px;
   border: none;
 
   font-family: Roboto, Verdana, Geneva, Tahoma, sans-serif;
+
   &:hover {
-   filter: brightness(60%);
+   background-color: var(--color-secondary);
    cursor: pointer;
    align-self: center;
   }
