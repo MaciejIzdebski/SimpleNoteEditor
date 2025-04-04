@@ -9,7 +9,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
-	"gorm.io/gorm/clause"
+	"gorm.io/gorm/logger"
 )
 
 var (
@@ -126,7 +126,10 @@ func SetupServer() (*gin.Engine) {
 }
 
 func setupGorm(dialector gorm.Dialector){
-	db, err = gorm.Open(dialector, &gorm.Config{})
+	db, err = gorm.Open(dialector,
+		&gorm.Config{
+			Logger: logger.Default.LogMode(logger.Info),
+		})
 
 	if err!= nil {
 		log.Panic("failed to connect to database: ", err.Error())
