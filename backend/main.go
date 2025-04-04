@@ -16,7 +16,7 @@ var (
 	db *gorm.DB
 	err error
 	notes = []models.Note{
-		{Title: "Test", Descrition: "Very interesting..."},
+		{Title: "Test", Description: "Very interesting..."},
 	}
 )
 

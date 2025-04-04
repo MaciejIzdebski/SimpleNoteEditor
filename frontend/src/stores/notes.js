@@ -8,32 +8,54 @@ function Note(title, description, ID){
 }
 
 export const useNotesStore = defineStore('notes', () => {
-  const notes = reactive([new Note("Test", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, vel esse dicta quaerat amet cumque sequi id ipsum perspiciatis iusto temporibus est tenetur fugiat, officia ea facere, incidunt placeat odit!")])
 
-  function create() {
-    notes.push(new Note("test", "..."))
-  }
+  const notes = reactive([])
 
-  function remove(note){
-    let noteIndex = notes.findIndex((n) => n.ID === note.ID)
-
-    if (noteIndex === -1) {
-      throw Error("Could not find an element with id: " + note.ID)
-    }
-    
-    console.log(noteIndex)
-    notes.splice(noteIndex,1)
-  }
-
-  function update(note) {
-    console.log(note)
-    let noteIndex = notes.findIndex((n) => n.ID === note.ID)
-
-    if (noteIndex === -1) {
-      throw Error("Could not find an element with id: " + note.ID)
+  async function getAll() {
+    let response;
+    try {
+      response = await fetch("/api/notes/", { method: "GET" })
+    } catch (err) {
+      window.alert(err)
+      return
     }
 
-    notes[noteIndex] = note
+    return await response.json()
+  }
+
+  getAll().then((noteResp) => notes.push(...noteResp))
+
+  async function create() {
+    let response;
+    try {
+      response = await fetch("/api/notes/", { method: "POST", body: "{}" })
+    } catch (err) {
+      window.alert(err)
+      return
+    }
+    notes.push(await response.json())
+  }
+
+  async function remove(note){
+    let response;
+    try {
+      response = await fetch(`/api/notes/${note.ID}`, { method: "DELETE", body: JSON.stringify(note) })
+    } catch (err) {
+      window.alert(err)
+      return
+    }
+
+    notes.findIndex((el) => el.ID === note.ID)
+  }
+
+  async function update(note) {
+    let response;
+    try {
+      response = await fetch(`/api/notes/${note.ID}`, { method: "PUT", body: JSON.stringify(note) })
+    } catch (err) {
+      window.alert(err)
+      return
+    }
   }
 
   return { notes, create, remove, update }

@@ -30,7 +30,7 @@ func TestPostNote(t *testing.T) {
 
 	testNote := models.Note {
 		Title: "Test note",
-		Descrition: "Test note",
+		Description: "Test note",
 	}
 
 	t.Log("Marshaling note to json")
@@ -50,7 +50,7 @@ func TestPostNote(t *testing.T) {
 	t.Log(responseNote)
 
 	assert.Equal(t, testNote.Title, responseNote.Title)
-	assert.Equal(t, testNote.Descrition, responseNote.Descrition)
+	assert.Equal(t, testNote.Description, responseNote.Description)
 
 	// assert.Equal(t, nil, responseNote.DeletedAt)
 	assert.Equal(t, responseNote.UpdatedAt, responseNote.CreatedAt)
