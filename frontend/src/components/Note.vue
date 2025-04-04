@@ -19,8 +19,11 @@ const note = reactive(props.note)
 
 const noteStore = useNotesStore()
 
-watch(note, () => noteStore.update(note), {
-    deep: true
+watch(note, () => {
+    noteStore.update(note)
+}, {
+    deep: true,
+    flush: "post"
 })
 
 
@@ -70,6 +73,7 @@ watch(note, () => noteStore.update(note), {
             outline-offset: 3px 3px;
         }
     }
+
 }
 
 </style>
