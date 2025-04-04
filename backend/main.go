@@ -1,4 +1,4 @@
-package note_server
+package main
 
 import (
 	"log"
