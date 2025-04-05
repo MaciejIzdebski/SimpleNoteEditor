@@ -7,7 +7,7 @@ const notesStore = useNotesStore()
 
 <template>
   <main>
-    <Note v-for="(note, index) in notesStore.notes" :note="note" :key="note.ID" />
+    <Note v-for="(note, ID) in notesStore.notes" :note="note" :key="ID" />
   </main>
 </template>
 
@@ -15,7 +15,7 @@ const notesStore = useNotesStore()
 main {
   display: flex;
   align-content: start;
-  justify-content: center;
+  justify-content: center; 
   flex-direction: row;
   margin: 15px;
   padding: 15px;

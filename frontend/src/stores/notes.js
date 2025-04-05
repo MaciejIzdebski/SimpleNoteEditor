@@ -9,7 +9,8 @@ function Note(title, description, ID){
 
 export const useNotesStore = defineStore('notes', () => {
 
-  const notes = reactive([])
+  const notes = reactive({})
+  Map
 
   async function getAll() {
     let response;
@@ -23,7 +24,14 @@ export const useNotesStore = defineStore('notes', () => {
     return await response.json()
   }
 
-  getAll().then((noteResp) => notes.push(...noteResp))
+  getAll().then((noteResp) => 
+    Object.assign(
+      notes,
+      Object.fromEntries(
+          noteResp.map((note) => [note.ID, note])
+        )
+      )
+    )
 
   async function create() {
     let response;
@@ -33,7 +41,9 @@ export const useNotesStore = defineStore('notes', () => {
       window.alert(err)
       return
     }
-    notes.push(await response.json())
+    let note = await response.json()
+
+    notes[note.ID] = note
   }
 
   async function remove(note){
@@ -45,7 +55,9 @@ export const useNotesStore = defineStore('notes', () => {
       return
     }
 
-    notes.findIndex((el) => el.ID === note.ID)
+    let noteResp = await response.json()
+
+    delete notes[noteResp.ID]
   }
 
   async function update(note) {
@@ -56,6 +68,10 @@ export const useNotesStore = defineStore('notes', () => {
       window.alert(err)
       return
     }
+
+    let noteResp = await response.json()
+
+    notes[noteResp.ID] = note
   }
 
   return { notes, create, remove, update }
